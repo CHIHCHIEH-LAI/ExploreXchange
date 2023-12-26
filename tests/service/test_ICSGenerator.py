@@ -4,7 +4,7 @@ import os
 
 from app.trip.Event import Event
 from app.trip.Trip import Trip
-from app.trip.ICSGenerator import ICSGenerator
+from app.service.ICSGenerator import ICSGenerator
 
 @pytest.fixture
 def ics_generator():
