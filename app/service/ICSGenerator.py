@@ -1,8 +1,8 @@
 import ics
-from datetime import datetime
-import pytz
+import os
 
 from app.trip.Trip import Trip
+from app.service import config
 
 class ICSGenerator:
     def generate_ics(self, trip: Trip) -> str:
@@ -19,7 +19,8 @@ class ICSGenerator:
             calendar.events.add(ics_event)
 
         ics_file_name = f"{trip.trip_name.replace(' ', '_')}.ics"
-        with open(ics_file_name, 'w') as trip_file:
+        ics_file_path = os.path.join(config.ICS_DIR_PATH, ics_file_name)
+        with open(ics_file_path, 'w') as trip_file:
             trip_file.writelines(calendar)
 
         return ics_file_name
