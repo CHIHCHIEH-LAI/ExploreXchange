@@ -1,4 +1,5 @@
-from fastapi import APIRouter, FileResponse, BackgroundTask
+from fastapi import APIRouter, BackgroundTasks
+from fastapi.responses import FileResponse
 import os
 
 from app.trip.Trip import Trip
@@ -14,5 +15,5 @@ async def create_event(trip : Trip):
     response = FileResponse(path=path, filename=ics_file_name, media_type='text/calendar')
 
     # Delete the temporary file after sending the response
-    response.background = BackgroundTask(os.unlink, path)
+    response.background = BackgroundTasks(os.unlink, path)
     return response
