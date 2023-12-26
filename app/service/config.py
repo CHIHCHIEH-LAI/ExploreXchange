@@ -1,1 +1,1 @@
-ICS_FILE_PATH = "ics_files"
+ICS_DIR_PATH = "app/service/ics_files"
