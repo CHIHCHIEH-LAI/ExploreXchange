@@ -1,4 +1,3 @@
-from datetime import datetime
 import pytest
 
 from app.trip.Trip import Trip
@@ -9,17 +8,15 @@ def test_valid_trip():
         "events": [
             {
                 "title": "Event 1",
-                "start_time": datetime(2023, 1, 1, 12, 0),
-                "end_time": datetime(2023, 1, 1, 14, 0),
-                "timezone": "UTC",
+                "start_time": "2023-01-01T12:00:00Z",
+                "end_time": "2023-01-01T14:00:00Z",
                 "location": "Location 1",
                 "description": "Description 1",
             },
             {
                 "title": "Event 2",
-                "start_time": datetime(2023, 1, 2, 12, 0),
-                "end_time": datetime(2023, 1, 2, 14, 0),
-                "timezone": "UTC",
+                "start_time": "2023-01-02T12:00:00Z",
+                "end_time": "2023-01-02T14:00:00Z",
                 "location": "Location 2",
                 "description": "Description 2",
             }
@@ -36,16 +33,16 @@ def test_trip_missing_trip_name():
             "events": [
                 {
                     "title": "Event 1",
-                    "start_time": datetime(2023, 1, 1, 12, 0),
-                    "end_time": datetime(2023, 1, 1, 14, 0),
+                    "start_time": "2023-01-01T12:00:00Z",
+                    "end_time": "2023-01-01T14:00:00Z",
                     "timezone": "UTC",
                     "location": "Location 1",
                     "description": "Description 1",
                 },
                 {
                     "title": "Event 2",
-                    "start_time": datetime(2023, 1, 2, 12, 0),
-                    "end_time": datetime(2023, 1, 2, 14, 0),
+                    "start_time": "2023-01-02T12:00:00Z",
+                    "end_time": "2023-01-02T14:00:00Z",
                     "timezone": "UTC",
                     "location": "Location 2",
                     "description": "Description 2",

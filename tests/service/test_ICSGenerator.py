@@ -12,29 +12,27 @@ def ics_generator():
 
 @pytest.fixture
 def generated_ics_file(ics_generator):
-    event_data1 = {
-        "title": "Event 1",
-        "start_time": datetime(2023, 1, 1, 12, 0),
-        "end_time": datetime(2023, 1, 1, 14, 0),
-        "timezone": "UTC",
-        "location": "Location 1",
-        "description": "Description 1",
-    }
-    
-    event_data2 = {
-        "title": "Event 2",
-        "start_time": datetime(2023, 1, 2, 12, 0),
-        "end_time": datetime(2023, 1, 2, 14, 0),
-        "timezone": "UTC",
-        "location": "Location 2",
-        "description": "Description 2",
-    }
-
     trip_data = {
         "trip_name": "Sample Trip",
-        "events": [Event(**event_data1), Event(**event_data2)]
+        "events": [
+            {
+                "title": "Event 1",
+                "start_time": "2023-01-01T12:00:00Z",
+                "end_time": "2023-01-01T14:00:00Z",
+                "timezone": "UTC",
+                "location": "Location 1",
+                "description": "Description 1",
+            },
+            {
+                "title": "Event 2",
+                "start_time": "2023-01-02T12:00:00Z",
+                "end_time": "2023-01-02T14:00:00Z",
+                "timezone": "UTC",
+                "location": "Location 2",
+                "description": "Description 2",
+            }
+        ]
     }
-    
     trip = Trip(**trip_data)
 
     ics_file_name = ics_generator.generate_ics(trip)

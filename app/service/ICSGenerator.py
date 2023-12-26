@@ -9,13 +9,11 @@ class ICSGenerator:
         calendar = ics.Calendar()
 
         for event in trip.events:
-            start_time = self.convert_to_timezone(event.start_time, event.timezone)
-            end_time = self.convert_to_timezone(event.end_time, event.timezone)
 
             ics_event = ics.Event()
             ics_event.name = event.title
-            ics_event.begin = start_time
-            ics_event.end = end_time
+            ics_event.begin = event.start_time
+            ics_event.end = event.end_time
             ics_event.location = event.location
             ics_event.description = event.description
             calendar.events.add(ics_event)
@@ -25,6 +23,3 @@ class ICSGenerator:
             trip_file.writelines(calendar)
 
         return ics_file_name
-
-    def convert_to_timezone(self, time: datetime, timezone: str) -> datetime:
-        return time.astimezone(pytz.timezone(timezone))      
