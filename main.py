@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from app.service.router import router as service_router
+import uvicorn
 
-app = FastAPI()
+from app.Application import app
 
-app.include_router(service_router)
+if __name__ == '__main__':
+    uvicorn.run(app, port=8000)
