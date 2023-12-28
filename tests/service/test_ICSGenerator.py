@@ -3,7 +3,7 @@ import os
 
 from app.trip.Trip import Trip
 from app.service.ICSGenerator import ICSGenerator
-from app.service import config
+from app.service.config import ICS_DIR_PATH
 
 @pytest.fixture
 def ics_generator():
@@ -35,7 +35,7 @@ def generated_ics_file(ics_generator):
     trip = Trip(**trip_data)
 
     ics_file_name = ics_generator.generate_ics(trip)
-    ics_file_path = os.path.join(config.ICS_DIR_PATH, ics_file_name)
+    ics_file_path = os.path.join(ICS_DIR_PATH, ics_file_name)
 
     yield ics_file_path
 

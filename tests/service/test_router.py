@@ -4,7 +4,7 @@ import os
 from fastapi.testclient import TestClient
 
 from main import app
-from tests.service import config
+from tests.service.config import ICS_DIR_PATH
 
 client = TestClient(app)
 
@@ -46,7 +46,7 @@ def test_content_exists(generated_ics_file):
     assert generated_ics_file.content is not None
     
 def test_content_download(generated_ics_file):
-    ics_file_path = os.path.join(config.ICS_DIR_PATH, "Sample_Trip.ics")
+    ics_file_path = os.path.join(ICS_DIR_PATH, "Sample_Trip.ics")
     with open(ics_file_path, "wb") as f:
         f.write(generated_ics_file.content)
     

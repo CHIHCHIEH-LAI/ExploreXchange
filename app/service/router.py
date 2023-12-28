@@ -4,7 +4,7 @@ import os
 
 from app.trip.Trip import Trip
 from app.service.ICSGenerator import ICSGenerator
-from app.service import config
+from app.service.config import ICS_DIR_PATH
 
 router = APIRouter()
 
@@ -12,7 +12,7 @@ router = APIRouter()
 async def create_event(trip : Trip, background_tasks: BackgroundTasks):
     icsGenerator = ICSGenerator()
     ics_file_name = icsGenerator.generate_ics(trip)
-    ics_file_path = os.path.join(config.ICS_DIR_PATH, ics_file_name)
+    ics_file_path = os.path.join(ICS_DIR_PATH, ics_file_name)
 
     # Define a function to delete the file
     def delete_temp_file(file_path):
