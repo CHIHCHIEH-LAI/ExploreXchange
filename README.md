@@ -3,8 +3,6 @@
 ## Tech Stack
 - Python
 - FastAPI
-
-## Feature
 - Google OAuth2
 
 ## Material Link
