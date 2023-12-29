@@ -5,7 +5,7 @@
 - FastAPI
 
 ## Feature
-- post 'trip/generate_ics': generate ics file from trip
+- Google OAuth2
 
 ## Material Link
 - OAuth: https://docs.authlib.org/en/latest/client/fastapi.html
