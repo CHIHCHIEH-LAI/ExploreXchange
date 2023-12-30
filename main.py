@@ -1,6 +1,6 @@
 import uvicorn
 
-from app.Application import app
+from app.application import app
 
 if __name__ == '__main__':
     uvicorn.run(app, port=8000)
