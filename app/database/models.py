@@ -30,5 +30,6 @@ class Event(SQLModel, table=True):
     end_time: datetime
     location: Optional[str]
     description: Optional[str]
+    owner: str = Field(index=True)
 
     trips: List[Trip] = Relationship(back_populates="events", link_model=EventTripLink)
