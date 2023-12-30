@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String, Date, ARRAY
+from sqlalchemy.ext.declarative import declarative_base
 
-from setup.database.postgres.setup_tables import tables
+Base = declarative_base()
 
-class trip_schema(tables.get_Base()):
+class trip_schema(Base):
     __tablename__ = 'trips'
     id = Column(Integer, primary_key=True)
     title = Column(String)

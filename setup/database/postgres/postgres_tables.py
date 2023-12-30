@@ -16,5 +16,5 @@ class postgres_tables:
         self.Base.metadata.drop_all(self.engine)
     
     def recreate(self):
-        self.create()
         self.destroy()
+        self.create()
