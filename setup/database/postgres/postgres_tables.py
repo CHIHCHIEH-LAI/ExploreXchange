@@ -1,13 +1,13 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 
 class postgres_tables:
-    def __init__(self, database_uri):
+    def __init__(self, database_uri, Base):
         self.engine = create_engine(database_uri)
-        self.Base = declarative_base()
+        self.Base = Base
 
-    def get_Base(self):
-        return self.Base
+    def initialize(self):
+        self.destroy()
+        self.create()
     
     def create(self):
         self.Base.metadata.create_all(self.engine)
