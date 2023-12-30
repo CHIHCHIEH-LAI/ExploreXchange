@@ -10,7 +10,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 cryptography==41.0.7
 exceptiongroup==1.2.0
--e git+https://github.com/CHIHCHIEH-LAI/ExploreXchange.git@b1338ae07f5341252d2ef43b7879ba7be51d8b4c#egg=exploreXchange
+-e git+https://github.com/CHIHCHIEH-LAI/ExploreXchange.git@4e54011a31f1171d23b76073477ecac0fb1291dd#egg=exploreXchange
 fastapi==0.106.0
 google-api-core==2.15.0
 google-api-python-client==2.111.0
@@ -48,6 +48,7 @@ rsa==4.9
 six==1.16.0
 sniffio==1.3.0
 SQLAlchemy==2.0.24
+sqlmodel==0.0.14
 starlette==0.27.0
 TatSu==5.8.3
 tomli==2.0.1
