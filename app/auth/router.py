@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from fastapi import Request
 from starlette.responses import RedirectResponse
 
-from app.auth.oauth import GoogleOAuth
+from app.auth.GoogleOAuth import GoogleOAuth
 
 router = APIRouter()
 
