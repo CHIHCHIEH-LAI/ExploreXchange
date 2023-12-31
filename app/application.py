@@ -4,15 +4,13 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import HTMLResponse
 
 from app.auth.router import router as auth_router
-from app.database.router import router as db_router
-from app.service.router import router as service_router
+from app.fileDownloader.router import router as service_router
 from app.config import MIDDLEWARE_SECRET_KEY
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=MIDDLEWARE_SECRET_KEY)
 
 app.include_router(auth_router)
-app.include_router(db_router)
 app.include_router(service_router)
 
 @app.get('/')

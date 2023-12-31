@@ -2,7 +2,7 @@ import ics
 import os
 
 from app.trip.Trip import Trip
-from app.service.config import ICS_DIR_PATH
+from app.fileDownloader.config import ICS_DIR_PATH
 
 class ICSGenerator:
     def generate_ics(self, trip: Trip) -> str:

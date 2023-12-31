@@ -3,8 +3,8 @@ from fastapi.responses import FileResponse
 import os
 
 from app.trip.Trip import Trip
-from app.service.ICSGenerator import ICSGenerator
-from app.service.config import ICS_DIR_PATH
+from app.fileDownloader.ICSGenerator import ICSGenerator
+from app.fileDownloader.config import ICS_DIR_PATH
 
 router = APIRouter()
 
