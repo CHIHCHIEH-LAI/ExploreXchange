@@ -2,20 +2,32 @@ from fastapi import APIRouter, BackgroundTasks
 from fastapi.responses import FileResponse
 import os
 
+from app.database.mongo.config import MONGODB_URI, DATABASE
+from app.database.mongo.database_manager import DatabaseManager
+from app.database.mongo.trip_collection_anager import TripCollectionManager
+from app.service.ics_conversion.trip_to_ics_converter import TripToICSConverter
+from app.service.ics_conversion.ics_file_saver import ICSFileSaver
+
 router = APIRouter()
 
-# @router.post("/trip/generate_ics")
-# async def create_event(trip : Trip, background_tasks: BackgroundTasks):
-#     icsGenerator = ICSGenerator()
-#     ics_file_name = icsGenerator.generate_ics(trip)
-#     ics_file_path = os.path.join(ICS_DIR_PATH, ics_file_name)
+@router.get("/download/trip/{trip_id}")
+async def download_trip(trip_id: str, background_tasks: BackgroundTasks):
+    dbMgr = DatabaseManager(MONGODB_URI, DATABASE)
+    colMgr = TripCollectionManager(dbMgr, 'trips')
+    converter = TripToICSConverter()
+    saver = ICSFileSaver()
+    file_path = f'ics_files/trip{trip_id}.ics'
 
-#     # Define a function to delete the file
-#     def delete_temp_file(file_path):
-#         os.unlink(file_path)
+    trip = colMgr.query_trip_by_id(trip_id)
+    ics_calendar = converter.convert(trip)
+    saver.save(ics_calendar, file_path)
 
-#     # Add the delete_temp_file function as a background task
-#     background_tasks.add_task(delete_temp_file, ics_file_path)
+    # Define a function to delete the file
+    def delete_temp_file(file_path):
+        os.unlink(file_path)
 
-#     response = FileResponse(path=ics_file_path, filename=ics_file_name, media_type='text/calendar')
-#     return response
+    # Add the delete_temp_file function as a background task
+    background_tasks.add_task(delete_temp_file, file_path)
+
+    response = FileResponse(path=file_path, media_type='text/calendar')
+    return response
