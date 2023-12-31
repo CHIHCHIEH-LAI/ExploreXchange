@@ -24,7 +24,7 @@ class TripCollectionManager(CollectionManager):
         query = {'_id': ObjectId(trip_id)}
         res = self.col.find_one(query)
         if res:
-            trip = Trip(**doc)
+            trip = Trip(**res)
             return trip
     
     def delete_trip_by_id(self, trip_id: str) -> None:
