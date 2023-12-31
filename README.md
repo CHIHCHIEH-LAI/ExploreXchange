@@ -14,6 +14,8 @@
 ## Material Link
 - OAuth: https://docs.authlib.org/en/latest/client/fastapi.html
 - SQLModel: https://sqlmodel.tiangolo.com/tutorial/many-to-many/
+- PyMongo: https://pymongo.readthedocs.io/en/stable/tutorial.html
+- Redis: https://redis.io/docs/connect/clients/python/
 
 ## Others
 - PyMongo, MongoDB <- SQLAlchemy, SQLModel, PostgreSQL
