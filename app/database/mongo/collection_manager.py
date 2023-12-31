@@ -1,4 +1,4 @@
-from app.database.mongo.DatabaseManager import DatabaseManager
+from app.database.mongo.database_manager import DatabaseManager
 
 class CollectionManager:
     def __init__(self, mgr: DatabaseManager, collection: str):

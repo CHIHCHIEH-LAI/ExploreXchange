@@ -21,10 +21,11 @@ def public(request: Request):
         return HTMLResponse(f'<p>Hello {name}!</p><a href=/logout>Logout</a>')
     return HTMLResponse('<a href=/login>Login</a>')
 
-# from app.models.Event import Event
+# from app.models.event import Event
 # from datetime import datetime
 # from app.database.mongo.config import MONGODB_URI, DATABASE
-# from app.database.mongo.DatabaseManager import DatabaseManager
+# from app.database.mongo.database_manager import DatabaseManager
+# from app.database.mongo.trip_collection_manager import TripCollectionManager
 
 # dbMgr = DatabaseManager(MONGODB_URI, DATABASE)
 # colMgr = TripCollectionManager(dbMgr, 'trips')
