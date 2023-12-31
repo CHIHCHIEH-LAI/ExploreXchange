@@ -14,7 +14,7 @@
 ## Material Link
 - OAuth: https://docs.authlib.org/en/latest/client/fastapi.html
 - SQLModel: https://sqlmodel.tiangolo.com/tutorial/many-to-many/
-- PyMongo: https://pymongo.readthedocs.io/en/stable/tutorial.html
+- PyMongo: https://www.w3schools.com/python/python_mongodb_delete.asp
 - Redis: https://redis.io/docs/connect/clients/python/
 
 ## Others
