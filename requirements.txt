@@ -11,7 +11,7 @@ click==8.1.7
 cryptography==41.0.7
 dnspython==2.4.2
 exceptiongroup==1.2.0
--e git+https://github.com/CHIHCHIEH-LAI/ExploreXchange.git@9331608d1414b68ff7cf9311039b57511e3f9538#egg=exploreXchange
+-e git+https://github.com/CHIHCHIEH-LAI/ExploreXchange.git@8e81962b9af0cf912a37d60d1930ede265c8f7ad#egg=exploreXchange
 fastapi==0.106.0
 google-api-core==2.15.0
 google-api-python-client==2.111.0
@@ -28,7 +28,6 @@ ics==0.7.2
 idna==3.6
 iniconfig==2.0.0
 itsdangerous==2.1.2
-motor==3.3.2
 oauthlib==3.2.2
 packaging==23.2
 pluggy==1.3.0
