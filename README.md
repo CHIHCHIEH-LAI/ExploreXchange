@@ -4,7 +4,7 @@
 - Python
 - FastAPI
 - Google OAuth2
-- MongoDB
+- PyMongo
 
 ## MongoDB Database Server
 1. ```docker pull mongo```
@@ -16,4 +16,4 @@
 - SQLModel: https://sqlmodel.tiangolo.com/tutorial/many-to-many/
 
 ## Others
-- MongoDB <- SQLAlchemy, SQLModel, PostgreSQL
+- PyMongo, MongoDB <- SQLAlchemy, SQLModel, PostgreSQL
