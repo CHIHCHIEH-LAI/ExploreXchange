@@ -1,18 +1,18 @@
-# ExploreXchange
+# ExploreXchange Project Overview
 
 ## Tech Stack
-- Python
-- FastAPI
-- Google OAuth2
-- PyMongo
-- ics
+- Programming Language: Python
+- Web Framework: FastAPI
+- Authentication: Google OAuth2 for secure sign-in
+- Database: PyMongo (MongoDB interface)
+- Calendar Integration: ics for trip scheduling
 
-## Feature
-- Google OAuth2 as authentication
-- CRUD trip
-- download trip as ics file
+## Key Features
+- Authentication: Secure user login using Google OAuth2.
+- Trip Management: Create, Read, Update, and Delete (CRUD) functionality for trip planning in MongoDB
+- Calendar Integration: Ability to download trip details as an ics file for easy calendar integration.
 
-## Material Link
+## Development Resources and Materials
 - OAuth: https://docs.authlib.org/en/latest/client/fastapi.html
 - SQLModel: https://sqlmodel.tiangolo.com/tutorial/many-to-many/
 - PyMongo: https://www.w3schools.com/python/python_mongodb_delete.asp
