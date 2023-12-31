@@ -1,0 +1,1 @@
+ICS_DIR_PATH = 'app/service/ics_downloader/ics_files'
