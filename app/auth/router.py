@@ -4,10 +4,11 @@ from fastapi import Request
 from starlette.responses import RedirectResponse
 
 from app.auth.GoogleOAuth import GoogleOAuth
+from app.auth.config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_SERVER_META_URL
 
 router = APIRouter()
 
-googleOAuth = GoogleOAuth()
+googleOAuth = GoogleOAuth(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_SERVER_META_URL)
 oauth = googleOAuth.get_oauth()
 
 @router.route('/login')
