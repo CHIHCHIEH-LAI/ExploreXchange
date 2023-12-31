@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.service.ics_conversion.router import ics_conversion_router
+from app.service.ics_downloader.router import ics_conversion_router
 
 router = APIRouter()
 
