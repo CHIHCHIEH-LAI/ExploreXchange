@@ -6,15 +6,15 @@ class Event(BaseModel):
     title: str
     start_time: datetime
     end_time: datetime
-    location: Optional[str]
-    description: Optional[str]
+    location: Optional[str] = ''
+    description: Optional[str] = ''
     owner: str
 
 class Trip(BaseModel):
     title: str
     start_time: datetime
     end_time: datetime
-    location: Optional[str]
-    description: Optional[str]
+    location: Optional[str] = ''
+    description: Optional[str] = ''
     owner: str
     events: List[Event]
