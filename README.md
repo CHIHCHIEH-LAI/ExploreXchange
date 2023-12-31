@@ -7,6 +7,11 @@
 - PyMongo
 - ics
 
+## Feature
+- Google OAuth2 as authentication
+- CRUD trip
+- download trip as ics file
+
 ## Material Link
 - OAuth: https://docs.authlib.org/en/latest/client/fastapi.html
 - SQLModel: https://sqlmodel.tiangolo.com/tutorial/many-to-many/
