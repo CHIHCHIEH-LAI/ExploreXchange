@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Session, create_engine, select
 
-from app.database.models import Trip, Event
+from app.database.postgres.models import Trip, Event
 
 class DatabaseManager:
     def __init__(self, database_uri):
