@@ -5,6 +5,7 @@
 - FastAPI
 - Google OAuth2
 - PyMongo
+- ics
 
 ## MongoDB Database Server
 1. ```docker pull mongo```
