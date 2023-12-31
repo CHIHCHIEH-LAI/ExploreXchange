@@ -1,3 +1,6 @@
+from bson.objectid import ObjectId
+from typing import Optional
+
 from app.database.mongo.CollectionManager import CollectionManager
 from app.models.Trip import Trip
 
@@ -11,14 +14,21 @@ class TripCollectionManager(CollectionManager):
 
     def query_all_trips_of_owner(self, owner: str) -> list:
         query = {'owner': owner}
-        docs = self.col.find(query)
+        docs = self.col.find(query, {"events": 0})
         result = []
         for d in docs:
             result.append(d)
         return result
     
+    def query_trip_by_id(self, trip_id: str) -> Optional[Trip]:
+        query = {'_id': ObjectId(trip_id)}
+        res = self.col.find_one(query)
+        if res:
+            trip = Trip(**doc)
+            return trip
+    
     def delete_trip_by_id(self, trip_id: str) -> None:
-        query = {'_id': trip_id}
+        query = {'_id': ObjectId(trip_id)}
         self.col.delete_one(query)
 
 from app.models.Event import Event
@@ -54,7 +64,11 @@ trip = Trip(
     ]
 )
 
-# mgr.create_trip('trips', trip)
-# docs = mgr.query_all_trips_of_owner('trips', 'Alice')
-mgr.delete_trip_by_id('trips')
-# mgr.clean_collection('trips')
+# colMgr.create_trip(trip)
+# docs = colMgr.query_all_trips_of_owner('Alice')
+# print(docs)
+# doc = colMgr.query_trip_by_id('65915d3abd6eb1e6ae071420')
+# trip = Trip(**doc)
+# print(trip)
+# colMgr.delete_trip_by_id('65915d3abd6eb1e6ae071420')
+# colMgr.clean_collection('trips')
