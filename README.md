@@ -14,7 +14,6 @@
 ## Material Link
 - OAuth: https://docs.authlib.org/en/latest/client/fastapi.html
 - SQLModel: https://sqlmodel.tiangolo.com/tutorial/many-to-many/
-- PyMongo to Motor: https://gist.github.com/anand2312/840aeb3e98c3d7dbb3db8b757c1a7ace
 
 ## Others
 - MongoDB <- SQLAlchemy, SQLModel, PostgreSQL
