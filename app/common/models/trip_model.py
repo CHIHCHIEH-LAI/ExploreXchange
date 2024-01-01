@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-from app.models.event import Event
+from app.common.models.event_model import Event
 
 class Trip(BaseModel):
     title: str

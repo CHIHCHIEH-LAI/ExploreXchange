@@ -3,11 +3,11 @@ from fastapi.responses import FileResponse
 import os
 
 from app.database.mongo.config import MONGODB_URI, DATABASE
-from app.service.ics_downloader.config import ICS_DIR_PATH
+from app.trip_service.ics_downloader.config import ICS_DIR_PATH
 from app.database.mongo.database_manager import DatabaseManager
 from app.database.mongo.trip_collection_manager import TripCollectionManager
-from app.service.ics_conversion.trip_to_ics_converter import TripToICSConverter
-from app.service.ics_conversion.ics_file_saver import ICSFileSaver
+from app.trip_service.ics_conversion.trip_to_ics_converter import TripToICSConverter
+from app.trip_service.ics_conversion.ics_file_saver import ICSFileSaver
 
 router = APIRouter()
 
