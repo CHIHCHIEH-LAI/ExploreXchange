@@ -1,7 +1,7 @@
 from starlette.config import Config
 from authlib.integrations.starlette_client import OAuth
 
-class GoogleOAuth:
+class GoogleOAuthManager:
     def __init__(self, client_id: str, client_secret: str, server_metadata_url: str) -> None:
         self.google_client_id = client_id
         self.google_client_secret = client_secret
