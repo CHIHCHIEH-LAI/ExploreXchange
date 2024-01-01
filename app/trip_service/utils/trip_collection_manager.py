@@ -2,7 +2,7 @@ from bson.objectid import ObjectId
 from typing import Optional
 
 from app.database.mongo.collection_manager import CollectionManager
-from app.common.models.trip_model import Trip
+from app.common.models.trip import Trip
 
 class TripCollectionManager(CollectionManager):
     def clean_collection(self) -> None:

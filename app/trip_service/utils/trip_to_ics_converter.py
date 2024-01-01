@@ -1,6 +1,6 @@
 import ics
 
-from app.common.models.trip_model import Trip
+from app.common.models.trip import Trip
 
 class TripToICSConverter:
     def convert(self, trip: Trip) -> ics.Calendar:

@@ -4,14 +4,14 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import HTMLResponse
 
 from app.auth.router import router as auth_router
-from app.trip_service.router import router as service_router
+from app.trip_service.router import router as trip_service_router
 from app.config import MIDDLEWARE_SECRET_KEY
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=MIDDLEWARE_SECRET_KEY)
 
 app.include_router(auth_router)
-app.include_router(service_router)
+app.include_router(trip_service_router)
 
 @app.get('/')
 def public(request: Request):
