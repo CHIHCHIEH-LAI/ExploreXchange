@@ -5,8 +5,7 @@ import os
 from app.common.models.trip import Trip
 from app.trip_service.dependencies import (
     get_trip_collection_manager,
-    get_trip_to_ics_converter,
-    get_ics_file_saver
+    get_trip_downloader
 )
 from app.trip_service.config import ICS_DIR_PATH
 
@@ -40,14 +39,12 @@ async def download_trip(
     trip_id: str, 
     background_tasks: BackgroundTasks,
     tripMgr = Depends(get_trip_collection_manager),
-    converter = Depends(get_trip_to_ics_converter),
-    saver = Depends(get_ics_file_saver)
+    downloader = Depends(get_trip_downloader)
 ):
     file_path = os.path.join(ICS_DIR_PATH, f'trip{trip_id}.ics')
 
     trip = tripMgr.query_trip_by_id(trip_id)
-    ics_calendar = converter.convert(trip)
-    saver.save(ics_calendar, file_path)
+    downloader.download_trip(trip)
 
     # Define a function to delete the file
     def delete_temp_file(file_path):
