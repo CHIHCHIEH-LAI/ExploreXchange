@@ -17,16 +17,25 @@ async def clear_trips(
     tripMgr = Depends(get_trip_collection_manager)
 ):
     tripMgr.clean_collection()
-    return {"message": "Collection cleared successfully"}
+    return {"message": "Trips collection cleared successfully"}
 
-@router.get("/create-trip")
+@router.post("/create-trip", status_code=status.HTTP_201_CREATED)
 async def create_trip(
     trip: Trip, 
     tripMgr = Depends(get_trip_collection_manager)
 ):
     tripMgr.create_trip(trip)
+    return {"message": "Created trip successfully"}
 
-@router.get("/download/trip/{trip_id}")
+@router.delete("/delete-trip", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_trip(
+    trip_id: str,
+    tripMgr = Depends(get_trip_collection_manager)
+):
+    tripMgr.delete_trip_by_id(trip_id)
+    return {"message": "Trip deleted successfully"}
+
+@router.get("/download-trip/{trip_id}")
 async def download_trip(
     trip_id: str, 
     background_tasks: BackgroundTasks,
