@@ -11,4 +11,5 @@ class Trip(BaseModel):
     location: Optional[str] = ''
     description: Optional[str] = ''
     owner: str
+    public: Optional[bool] = False
     events: List[Event]
