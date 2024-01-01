@@ -1,5 +1,6 @@
 from fastapi import APIRouter, BackgroundTasks, status, Depends
 from fastapi.responses import FileResponse
+from typing import List
 import os
 
 from app.common.models.trip import Trip
@@ -25,8 +26,15 @@ async def create_trip(
 ):
     tripMgr.create_trip(trip)
     return {"message": "Created trip successfully"}
+    
+@router.get("/query-trip_by_id/{trip_id}", response_model=Trip, status_code=status.HTTP_200_OK)
+async def query_trip_by_id(
+    trip_id: str,
+    tripMgr = Depends(get_trip_collection_manager)
+):
+    tripMgr.query_trip_by_id(trip_id)
 
-@router.delete("/delete-trip", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/delete-trip/{trip_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_trip(
     trip_id: str,
     tripMgr = Depends(get_trip_collection_manager)

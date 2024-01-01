@@ -1,5 +1,5 @@
 from bson.objectid import ObjectId
-from typing import Optional
+from typing import Optional, List
 
 from app.database.mongo.collection_manager import CollectionManager
 from app.common.models.trip import Trip
@@ -12,9 +12,9 @@ class TripCollectionManager(CollectionManager):
         trip_data = dict(trip.model_dump())
         self.col.insert_one(trip_data)
 
-    def query_all_trips_of_owner(self, owner: str) -> list:
+    def query_trips_by_owner(self, owner: str) -> Optional[List[Trip]]:
         query = {'owner': owner}
-        docs = self.col.find(query, {"events": 0})
+        docs = self.col.find(query)
         result = []
         for d in docs:
             result.append(d)
