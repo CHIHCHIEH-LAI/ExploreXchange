@@ -1,4 +1,4 @@
-from fastapi import APIRouter, BackgroundTasks, Depends
+from fastapi import APIRouter, BackgroundTasks, status, Depends
 from fastapi.responses import FileResponse
 import os
 
@@ -12,12 +12,19 @@ from app.trip_service.config import ICS_DIR_PATH
 
 router = APIRouter()
 
-@router.get("/create/trip")
+@router.delete("/clear-trips", status_code=status.HTTP_204_NO_CONTENT)
+async def clear_trips(
+    tripMgr = Depends(get_trip_collection_manager)
+):
+    tripMgr.clean_collection()
+    return {"message": "Collection cleared successfully"}
+
+@router.get("/create-trip")
 async def create_trip(
     trip: Trip, 
     tripMgr = Depends(get_trip_collection_manager)
 ):
-    pass
+    tripMgr.create_trip(trip)
 
 @router.get("/download/trip/{trip_id}")
 async def download_trip(
