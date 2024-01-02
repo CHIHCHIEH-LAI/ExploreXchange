@@ -5,3 +5,4 @@ exploreXchange.egg-info
 .vscode
 .pytest_cache
 *.pyc
+__pycache__/
