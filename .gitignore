@@ -3,3 +3,5 @@ env
 generate_requirements.sh
 exploreXchange.egg-info
 .vscode
+.pytest_cache
+*__pycache__
