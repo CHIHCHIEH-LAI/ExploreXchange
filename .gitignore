@@ -2,5 +2,4 @@ env
 .env
 generate_requirements.sh
 exploreXchange.egg-info
-.pytest_cache
 .vscode
