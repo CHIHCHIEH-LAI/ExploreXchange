@@ -1,6 +1,7 @@
 annotated-types==0.6.0
 anyio==3.7.1
 arrow==1.3.0
+async-timeout==4.0.3
 attrs==23.1.0
 Authlib==1.3.0
 cachetools==5.3.2
@@ -11,7 +12,7 @@ click==8.1.7
 cryptography==41.0.7
 dnspython==2.4.2
 exceptiongroup==1.2.0
--e git+https://github.com/CHIHCHIEH-LAI/ExploreXchange.git@8e81962b9af0cf912a37d60d1930ede265c8f7ad#egg=exploreXchange
+-e git+https://github.com/CHIHCHIEH-LAI/ExploreXchange.git@ee61e9e6e30489490c09455ff3eee7e7883e5558#egg=exploreXchange
 fastapi==0.106.0
 google-api-core==2.15.0
 google-api-python-client==2.111.0
@@ -21,6 +22,7 @@ google-auth-oauthlib==1.2.0
 googleapis-common-protos==1.62.0
 greenlet==3.0.3
 h11==0.14.0
+hiredis==2.3.2
 httpcore==1.0.2
 httplib2==0.22.0
 httpx==0.26.0
@@ -44,6 +46,7 @@ pytest==7.4.3
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 pytz==2023.3.post1
+redis==5.0.1
 requests==2.31.0
 requests-oauthlib==1.3.1
 rsa==4.9
