@@ -9,6 +9,7 @@
 
 ## Key Features
 - Authentication: Secure user login using Google OAuth2.
+- Session Data: Store session id and data in Redis
 - Trip Management: Create, Read, Update, and Delete (CRUD) functionality for trip planning in MongoDB
 - Calendar Integration: Ability to download trip details as an ics file for easy calendar integration.
 
@@ -16,7 +17,7 @@
 - OAuth: https://docs.authlib.org/en/latest/client/fastapi.html
 - SQLModel: https://sqlmodel.tiangolo.com/tutorial/many-to-many/
 - PyMongo: https://www.w3schools.com/python/python_mongodb_delete.asp
-- Redis: https://redis.io/docs/connect/clients/python/
+- Redis: https://github.com/redis/redis-py
 
 ## Others
 - PyMongo, MongoDB <- SQLAlchemy, SQLModel, PostgreSQL
