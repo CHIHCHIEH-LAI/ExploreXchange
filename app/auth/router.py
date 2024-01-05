@@ -24,7 +24,6 @@ async def auth(
     except OAuthError:
         return RedirectResponse(url='/')
     user_data = access_token.get('userinfo')
-    print(dict(user_data))
     if user_data:
         request.session['user'] = dict(user_data)
     return RedirectResponse(url='/')
