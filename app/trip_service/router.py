@@ -12,9 +12,12 @@ from app.trip_service.config import ICS_DIR_PATH
 
 router = APIRouter()
 
+tripMgr = get_trip_collection_manager()
+downloader = get_trip_downloader()
+
 @router.delete("/clear-trips", status_code=status.HTTP_204_NO_CONTENT)
 async def clear_trips(
-    tripMgr = Depends(get_trip_collection_manager)
+    # tripMgr = Depends(get_trip_collection_manager)
 ):
     tripMgr.clean_collection()
     return {"message": "Trips collection cleared successfully"}
@@ -22,7 +25,7 @@ async def clear_trips(
 @router.post("/create-trip", status_code=status.HTTP_201_CREATED)
 async def create_trip(
     trip: Trip, 
-    tripMgr = Depends(get_trip_collection_manager)
+    # tripMgr = Depends(get_trip_collection_manager)
 ):
     tripMgr.create_trip(trip)
     return {"message": "Created trip successfully"}
@@ -30,14 +33,14 @@ async def create_trip(
 @router.get("/query-trip_by_id/{trip_id}", response_model=Trip, status_code=status.HTTP_200_OK)
 async def query_trip_by_id(
     trip_id: str,
-    tripMgr = Depends(get_trip_collection_manager)
+    # tripMgr = Depends(get_trip_collection_manager)
 ):
     tripMgr.query_trip_by_id(trip_id)
 
 @router.delete("/delete-trip/{trip_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_trip(
     trip_id: str,
-    tripMgr = Depends(get_trip_collection_manager)
+    # tripMgr = Depends(get_trip_collection_manager)
 ):
     tripMgr.delete_trip_by_id(trip_id)
     return {"message": "Trip deleted successfully"}
@@ -46,8 +49,8 @@ async def delete_trip(
 async def download_trip(
     trip_id: str, 
     background_tasks: BackgroundTasks,
-    tripMgr = Depends(get_trip_collection_manager),
-    downloader = Depends(get_trip_downloader)
+    # tripMgr = Depends(get_trip_collection_manager),
+    # downloader = Depends(get_trip_downloader)
 ):
     file_path = os.path.join(ICS_DIR_PATH, f'trip{trip_id}.ics')
 
