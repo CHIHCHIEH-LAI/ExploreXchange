@@ -9,7 +9,6 @@
 
 ## Key Features
 - Authentication: Secure user login using Google OAuth2.
-- Session Data: Store session id and data in Redis
 - Trip Management: Create, Read, Update, and Delete (CRUD) functionality for trip planning in MongoDB
 - Calendar Integration: Ability to download trip details as an ics file for easy calendar integration.
 
