@@ -1,8 +1,6 @@
-from fastapi import FastAPI
-from fastapi import Request
+from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
-from starlette.responses import HTMLResponse
 
 from app.auth.router import router as auth_router
 from app.trip_service.router import router as trip_service_router
