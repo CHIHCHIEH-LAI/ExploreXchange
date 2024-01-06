@@ -10,6 +10,9 @@ class Trip(BaseModel):
     end_time: datetime
     location: Optional[str] = ''
     description: Optional[str] = ''
-    owner: str
+    owner: str = ''
     public: Optional[bool] = False
     events: List[Event]
+
+    def update_owner(self, email):
+        self.owner = email

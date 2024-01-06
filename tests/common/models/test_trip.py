@@ -46,3 +46,19 @@ def test_create_trip_with_invalid_event_data():
             owner="user456",
             events=[create_sample_event(), Event(title="Invalid Event", start_time="not a datetime", end_time=datetime(2024, 1, 2, 12, 0), owner="user789")]
         )
+
+def test_update_trip_owner():
+    trip = Trip(
+        title="Adventure Trip",
+        start_time=datetime(2024, 1, 10, 8, 0),
+        end_time=datetime(2024, 1, 15, 18, 0),
+        location="Mount Everest",
+        description="Exciting adventure trip to Everest.",
+        owner="user456",
+        public=True,
+        events=[create_sample_event(), create_sample_event(title="Another Event")]
+    )
+    new_email = "example_user@gmail.com"
+    trip.update_owner(new_email)
+
+    assert trip.owner == new_email

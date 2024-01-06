@@ -8,4 +8,3 @@ class Event(BaseModel):
     end_time: datetime
     location: Optional[str] = ''
     description: Optional[str] = ''
-    owner: str
