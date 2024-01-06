@@ -9,7 +9,7 @@ router = APIRouter()
 
 oauth = get_google_oauth()
 
-@router.route('/login')
+@router.route('/login/google')
 async def login(
     request: Request,
     # oauth: OAuth = Depends(get_google_oauth)
@@ -17,7 +17,7 @@ async def login(
     redirect_uri = request.url_for('auth')
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
-@router.route('/auth')
+@router.route('/auth/google')
 async def auth(
     request: Request,
     # oauth: OAuth = Depends(get_google_oauth)
