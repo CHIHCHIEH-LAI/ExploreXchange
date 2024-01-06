@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trip Planning</title>
+</head>
+<body>
+    <h2>Trip Planning</h2>
+    <form action="/create-trip" method="post">
+        <h3>Trip Details</h3>
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <label for="start_time">Start Time:</label><br>
+        <input type="datetime-local" id="start_time" name="start_time"><br>
+        <label for="end_time">End Time:</label><br>
+        <input type="datetime-local" id="end_time" name="end_time"><br>
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description"></textarea><br>
+        <input type="checkbox" id="public" name="public">
+        <label for="public">Make Public</label><br>
+
+        <h3>Events</h3>
+        <div id="events">
+            <!-- Event inputs will be added here -->
+        </div>
+        <button type="button" onclick="addEvent()">Add Event</button><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        let eventCount = 0;
+
+        function addEvent() {
+            var container = document.getElementById("events");
+            var eventHTML = `
+                <div id="event-${eventCount}">
+                    <h4>Event</h4>
+                    <label for="events_title">Title:</label><br>
+                    <input type="text" name="events_title_${eventCount}"><br>
+                    <label for="events_start_time">Start Time:</label><br>
+                    <input type="datetime-local" name="events_start_time_${eventCount}"><br>
+                    <label for="events_end_time">End Time:</label><br>
+                    <input type="datetime-local" name="events_end_time_${eventCount}"><br>
+                    <label for="events_location">Location:</label><br>
+                    <input type="text" name="events_location_${eventCount}"><br>
+                    <label for="events_description">Description:</label><br>
+                    <textarea name="events_description_${eventCount}"></textarea><br>
+                    <button type="button" onclick="deleteEvent(${eventCount})">Delete Event</button>
+                </div>
+            `;
+            container.innerHTML += eventHTML;
+            eventCount++;
+        }
+
+        function deleteEvent(eventId) {
+            var eventDiv = document.getElementById("event-" + eventId);
+            if (eventDiv) {
+                eventDiv.remove();
+            }
+        }
+    </script>
+</body>
+</html>
