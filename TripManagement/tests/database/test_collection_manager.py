@@ -51,12 +51,36 @@ def test_create_trip():
         colMgr.create_trip(trip)
     except Exception as e:
         assert False, f"An error occurred while creating trip to MongoDB: {e}"
+    colMgr.clean_collection()
 
 def test_clean_collection():
     colMgr = get_collection_manager()
     colMgr.connect()
     try:
-        colMgr.clean_collection()
+        res = colMgr.clean_collection()
+        if not res:
+            assert False, "Cleaned Unsuccessfully"
     except Exception as e:
         assert False, f"An error occurred while cleaning trip collection: {e}"
-    
+
+def test_query_trip_by_id():
+    colMgr = get_collection_manager()
+    colMgr.connect()
+    trip = create_sample_trip()
+    trip_id = colMgr.create_trip(trip)
+    query_result = colMgr.query_trip_by_id(trip_id)
+    assert query_result == trip
+    colMgr.clean_collection()
+
+def test_delete_trip_by_id():
+    colMgr = get_collection_manager()
+    colMgr.connect()
+    trip = create_sample_trip()
+    trip_id = colMgr.create_trip(trip)
+    res = colMgr.delete_trip_by_id(trip_id)
+    assert res == 1
+    query_result = colMgr.query_trip_by_id(trip_id)
+    assert query_result == None
+    colMgr.clean_collection()
+
+
