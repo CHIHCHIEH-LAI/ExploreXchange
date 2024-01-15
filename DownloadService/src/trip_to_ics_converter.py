@@ -1,8 +1,9 @@
 import ics
 
-from app.common.models.trip import Trip
+from src.models.trip import Trip
 
 class TripToICSConverter:
+    @staticmethod
     def convert(self, trip: Trip) -> ics.Calendar:
         calendar = ics.Calendar()
 
