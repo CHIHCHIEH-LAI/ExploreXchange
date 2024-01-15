@@ -4,7 +4,7 @@ from src.models.trip import Trip
 
 class TripToICSConverter:
     @staticmethod
-    def convert(self, trip: Trip) -> ics.Calendar:
+    def convert(trip: Trip) -> ics.Calendar:
         calendar = ics.Calendar()
 
         for event in trip.events:

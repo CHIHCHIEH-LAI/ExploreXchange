@@ -4,7 +4,7 @@ from src.models.trip import Trip
 
 class TripDownloader:
     @staticmethod
-    def download_trip(self, trip: Trip, file_path: str):
+    def download_trip(trip: Trip, file_path: str):
         ics_calendar = TripToICSConverter.convert(trip)
         ICSFileSaver.save(ics_calendar, file_path)
 
