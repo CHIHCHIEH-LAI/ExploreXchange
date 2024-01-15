@@ -8,18 +8,15 @@ from config import TRIP_MANAGEMENT_URI, ICS_DIR_PATH
 app = FastAPI()
 
 @app.get("/download/trip/{trip_id}")
-async def download_trip(
-    trip_id: str, 
-    background_tasks: BackgroundTasks
-):
-    
+async def download_trip(trip_id: str, background_tasks: BackgroundTasks):
+
     trip_query_uri = os.path.join(TRIP_MANAGEMENT_URI, f'trips/query-by-id/{trip_id}')
-    requests.get(trip_query_uri)
+    response = requests.get(trip_query_uri)
     
     # and extract trip data from requests response
 
     # trip to ics
-
+    
     # save ics file
 
     # download ics file
