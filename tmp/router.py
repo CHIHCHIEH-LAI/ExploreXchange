@@ -9,7 +9,7 @@ from app.trip_service.dependencies import (
     get_trip_downloader
 )
 from app.trip_service.config import ICS_DIR_PATH
-from app.config import FRONTEND_TEMPLATE_DIR
+from config import FRONTEND_TEMPLATE_DIR
 
 router = APIRouter()
 

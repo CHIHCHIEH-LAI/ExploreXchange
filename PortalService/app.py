@@ -4,7 +4,7 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from app.auth.router import router as auth_router
 from app.trip_service.router import router as trip_service_router
-from app.config import MIDDLEWARE_SECRET_KEY, FRONTEND_TEMPLATE_DIR
+from config import MIDDLEWARE_SECRET_KEY, FRONTEND_TEMPLATE_DIR
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key=MIDDLEWARE_SECRET_KEY)

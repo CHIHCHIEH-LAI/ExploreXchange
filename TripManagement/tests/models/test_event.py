@@ -1,7 +1,8 @@
 import pytest
+
 from datetime import datetime
 from pydantic import ValidationError
-from app.common.models.event import Event
+from src.models.event import Event
 
 def test_create_event_with_valid_data():
     event = Event(

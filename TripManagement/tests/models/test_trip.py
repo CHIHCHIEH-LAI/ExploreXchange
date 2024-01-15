@@ -1,8 +1,9 @@
 import pytest
+
 from datetime import datetime
 from pydantic import ValidationError
-from app.common.models.trip import Trip
-from app.common.models.event import Event
+from src.models.trip import Trip
+from src.models.event import Event
 
 def create_sample_event(title="Sample Event", owner="user123"):
     return Event(

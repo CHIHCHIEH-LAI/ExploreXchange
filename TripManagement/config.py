@@ -4,7 +4,7 @@ import os
 load_dotenv()
 
 MONGODB_URI = os.getenv('MONGODB_URI')
-DATABASE = 'exploreXchangeDB'
+DATABASE_NAME = 'exploreXchangeDB'
+COLLECTION_NAME = 'trips'
 
-TRIPS_COLLECTION = 'trips'
 ICS_DIR_PATH = 'app/service/ics_downloader/ics_files'
