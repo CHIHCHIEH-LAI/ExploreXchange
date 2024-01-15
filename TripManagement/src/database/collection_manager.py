@@ -20,10 +20,28 @@ class CollectionManager():
 
     def clean_collection(self) -> None:
         self.collection.delete_many({})
+        document_count = 0
+        for doc in self.collection.find({}):
+            document_count += 1
+        return document_count == 0
     
     def create_trip(self, trip: Trip) -> None:
         trip_data = dict(trip.model_dump())
-        self.collection.insert_one(trip_data)
+        trip_id = self.collection.insert_one(trip_data).inserted_id
+        return trip_id
+
+    def query_trip_by_id(self, trip_id: str) -> Optional[Trip]:
+        query = {'_id': ObjectId(trip_id)}
+        res = self.collection.find_one(query)
+        if res:
+            trip = Trip(**res)
+            return trip
+        return None
+    
+    def delete_trip_by_id(self, trip_id: str) -> None:
+        query = {'_id': ObjectId(trip_id)}
+        del_count = self.collection.delete_one(query).deleted_count
+        return del_count == 1
 
     # def query_trips_by_owner(self, owner: str) -> Optional[List[Trip]]:
     #     query = {'owner': owner}
@@ -32,14 +50,3 @@ class CollectionManager():
     #     for d in docs:
     #         result.append(d)
     #     return result
-    
-    # def query_trip_by_id(self, trip_id: str) -> Optional[Trip]:
-    #     query = {'_id': ObjectId(trip_id)}
-    #     res = self.col.find_one(query)
-    #     if res:
-    #         trip = Trip(**res)
-    #         return trip
-    
-    # def delete_trip_by_id(self, trip_id: str) -> None:
-    #     query = {'_id': ObjectId(trip_id)}
-    #     self.col.delete_one(query)
