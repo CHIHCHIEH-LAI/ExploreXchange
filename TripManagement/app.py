@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 
 from src.models.trip import Trip
 from src.database.collection_manager import CollectionManager
@@ -12,7 +13,11 @@ colMgr = CollectionManager(
     db_name = DATABASE_NAME,
     collection_name = COLLECTION_NAME
 )
-colMgr.connect()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    colMgr.connect()
+    yield
+    colMgr.disconnect()
 
 @app.post("/trips/create-trip")
 async def create_trip(

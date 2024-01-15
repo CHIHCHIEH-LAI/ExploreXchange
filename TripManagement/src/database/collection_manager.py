@@ -15,6 +15,9 @@ class CollectionManager():
         self.db = self.client[self.db_name]
         self.collection = self.db[self.collection_name]
 
+    def disconnect(self) -> None:
+        self.client.close()
+
     def clean_collection(self) -> None:
         self.collection.delete_many({})
     
