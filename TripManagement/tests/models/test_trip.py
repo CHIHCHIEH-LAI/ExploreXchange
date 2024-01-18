@@ -2,6 +2,7 @@ import pytest
 
 from datetime import datetime
 from pydantic import ValidationError
+
 from src.models.trip import Trip
 from src.models.event import Event
 

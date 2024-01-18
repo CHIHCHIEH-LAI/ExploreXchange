@@ -2,6 +2,7 @@ import pytest
 
 from datetime import datetime
 from pydantic import ValidationError
+
 from src.models.event import Event
 
 def test_create_event_with_valid_data():

@@ -4,8 +4,8 @@ from datetime import datetime
 from src.models.event import Event
 from src.models.trip import Trip
 
-from src.database.collection_manager import CollectionManager
-from config import MONGODB_URI, DATABASE_NAME, COLLECTION_NAME
+from TripManagement.src.database.collection_manager import CollectionManager
+from TripManagement.config import MONGODB_URI, DATABASE_NAME, COLLECTION_NAME
 
 def get_collection_manager():
     colMgr = CollectionManager(
