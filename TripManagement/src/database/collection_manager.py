@@ -2,7 +2,7 @@ from bson.objectid import ObjectId
 from typing import Optional, List
 from pymongo import MongoClient
 
-from src.models.trip import Trip
+from TripManagement.src.models.trip import Trip
 
 class CollectionManager():
     def __init__(self, uri, db_name, collection_name):

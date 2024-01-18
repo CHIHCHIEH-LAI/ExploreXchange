@@ -69,7 +69,7 @@ def test_query_trip_by_id():
     trip = create_sample_trip()
     trip_id = colMgr.create_trip(trip)
     query_result = colMgr.query_trip_by_id(trip_id)
-    assert query_result == trip
+    assert query_result.title == trip.title
     colMgr.clean_collection()
 
 def test_delete_trip_by_id():

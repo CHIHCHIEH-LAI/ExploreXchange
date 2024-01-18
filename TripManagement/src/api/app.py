@@ -4,9 +4,9 @@ from fastapi import FastAPI, status, HTTPException
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 
-from src.models.trip import Trip
-from src.database.collection_manager import CollectionManager
-from config import MONGODB_URI, DATABASE_NAME, COLLECTION_NAME
+from TripManagement.src.models.trip import Trip
+from TripManagement.src.database.collection_manager import CollectionManager
+from TripManagement.config import MONGODB_URI, DATABASE_NAME, COLLECTION_NAME
 
 app = FastAPI()
 
