@@ -1,6 +1,6 @@
 import ics
 
-from src.models.trip import Trip
+from TripService.src.models.trip import Trip
 
 class TripToICSConverter:
     @staticmethod

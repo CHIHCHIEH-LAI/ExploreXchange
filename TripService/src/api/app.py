@@ -1,11 +1,13 @@
 from typing import List
 from fastapi import FastAPI, status, HTTPException, BackgroundTasks
+from starlette.responses import FileResponse
 from contextlib import asynccontextmanager
 import os
 
 from TripService.src.models.trip import Trip
 from TripService.src.database.collection_manager import CollectionManager
-from TripService.config import MONGO_DETAILS, DATABASE_NAME, COLLECTION_NAME
+from TripService.config import MONGO_DETAILS, DATABASE_NAME, COLLECTION_NAME, ICS_DIR_PATH
+from TripService.src.download_helper.trip_downloader import TripDownloader
 
 colMgr = CollectionManager(
     uri = MONGO_DETAILS,
@@ -72,31 +74,17 @@ async def update_trip_endpoint(trip_id: str, trip: Trip):
 
 @app.get("/trips/download/{trip_id}")
 async def download_trip(trip_id: str, background_tasks: BackgroundTasks):
-    pass
 
-#     trip_query_uri = os.path.join(TRIP_MANAGEMENT_URI, f'trips/query-by-id/{trip_id}')
-#     response = requests.get(trip_query_uri)
-    
-#     # and extract trip data from requests response
+    trip = await colMgr.retrieve_trip_by_id(trip_id)
+    file_path = os.path.join(ICS_DIR_PATH, f'trip{trip_id}.ics')
+    TripDownloader.download_trip(trip, file_path)
 
-#     # trip to ics
-    
-#     # save ics file
+    # Define a function to delete the file
+    def delete_temp_file(file_path):
+        os.unlink(file_path)
 
-#     # download ics file
+    # Add the delete_temp_file function as a background task
+    background_tasks.add_task(delete_temp_file, file_path)
 
-#     # future: save ics file to redic for caching
-
-#     file_path = os.path.join(ICS_DIR_PATH, f'trip{trip_id}.ics')
-
-#     downloader.download_trip(trip)
-
-#     # Define a function to delete the file
-#     def delete_temp_file(file_path):
-#         os.unlink(file_path)
-
-#     # Add the delete_temp_file function as a background task
-#     background_tasks.add_task(delete_temp_file, file_path)
-
-#     response = FileResponse(path=file_path, media_type='text/calendar')
-#     return response
+    response = FileResponse(path=file_path, media_type='text/calendar')
+    return response
