@@ -1,9 +1,6 @@
 venv
 .env
-generate_requirements.sh
-exploreXchange.egg-info
 .vscode
 .pytest_cache
 *.pyc
 **/__pycache__/
-pytest.ini
