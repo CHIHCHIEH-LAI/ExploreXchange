@@ -4,14 +4,14 @@ from fastapi import FastAPI, status, HTTPException
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 
-from TripManagement.src.models.trip import Trip
-from TripManagement.src.database.collection_manager import CollectionManager
-from TripManagement.config import MONGODB_URI, DATABASE_NAME, COLLECTION_NAME
+from TripService.src.models.trip import Trip
+from TripService.src.database.collection_manager import CollectionManager
+from TripService.config import MONGO_DETAILS, DATABASE_NAME, COLLECTION_NAME
 
-app = FastAPI()
+# app = FastAPI()
 
 colMgr = CollectionManager(
-    uri = MONGODB_URI,
+    uri = MONGO_DETAILS,
     db_name = DATABASE_NAME,
     collection_name = COLLECTION_NAME
 )
@@ -20,6 +20,7 @@ async def lifespan(app: FastAPI):
     colMgr.connect()
     yield
     colMgr.disconnect()
+app = FastAPI(lifespan=lifespan)
 
 @app.post("/trips/create-trip", status_code=status.HTTP_201_CREATED)
 async def create_trip(trip: Trip):

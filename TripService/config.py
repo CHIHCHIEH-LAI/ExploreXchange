@@ -3,6 +3,6 @@ import os
 
 load_dotenv()
 
-MONGODB_URI = os.getenv('MONGODB_URI')
+MONGO_DETAILS = os.getenv('MONGO_DETAILS')
 DATABASE_NAME = 'exploreXchangeDB'
 COLLECTION_NAME = 'trips'

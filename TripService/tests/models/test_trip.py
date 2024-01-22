@@ -3,8 +3,8 @@ import pytest
 from datetime import datetime
 from pydantic import ValidationError
 
-from src.models.trip import Trip
-from src.models.event import Event
+from TripService.src.models.trip import Trip
+from TripService.src.models.event import Event
 
 def create_sample_event(title="Sample Event", owner="user123"):
     return Event(

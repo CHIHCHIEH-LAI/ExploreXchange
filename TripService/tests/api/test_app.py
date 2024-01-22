@@ -3,7 +3,7 @@ import pytest
 import os
 from fastapi.testclient import TestClient
 
-from TripManagement.src.api.app import app
+from TripService.src.api.app import app
 
 client = TestClient(app)
 
