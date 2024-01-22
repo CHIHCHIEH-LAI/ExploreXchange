@@ -1,4 +1,4 @@
-env
+venv
 .env
 generate_requirements.sh
 exploreXchange.egg-info
