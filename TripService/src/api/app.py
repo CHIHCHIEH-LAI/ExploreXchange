@@ -7,7 +7,7 @@ import os
 from TripService.src.models.trip import Trip
 from TripService.src.database.collection_manager import CollectionManager
 from TripService.config import MONGO_DETAILS, DATABASE_NAME, COLLECTION_NAME, ICS_DIR_PATH
-from TripService.src.download_helper.trip_downloader import TripDownloader
+from TripService.src.downloader.trip_downloader import TripDownloader
 
 colMgr = CollectionManager(
     uri = MONGO_DETAILS,

@@ -1,5 +1,5 @@
-from TripService.src.download_helper.trip_to_ics_converter import TripToICSConverter
-from TripService.src.download_helper.ics_file_saver import ICSFileSaver
+from TripService.src.downloader.trip_to_ics_converter import TripToICSConverter
+from TripService.src.downloader.ics_file_saver import ICSFileSaver
 from TripService.src.models.trip import Trip
 
 class TripDownloader:
