@@ -6,3 +6,5 @@ load_dotenv()
 MONGO_DETAILS = os.getenv('MONGO_DETAILS')
 DATABASE_NAME = 'exploreXchangeDB'
 COLLECTION_NAME = 'trips'
+
+ICS_DIR_PATH = 'TripService/ics_files'

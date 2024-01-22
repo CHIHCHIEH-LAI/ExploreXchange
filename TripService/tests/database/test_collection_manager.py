@@ -1,8 +1,9 @@
 import pytest
+
 from datetime import datetime
 
-from src.models.event import Event
-from src.models.trip import Trip
+from TripService.src.models.event import Event
+from TripService.src.models.trip import Trip
 
 from TripService.src.database.collection_manager import CollectionManager
 from TripService.config import MONGODB_URI, DATABASE_NAME, COLLECTION_NAME
