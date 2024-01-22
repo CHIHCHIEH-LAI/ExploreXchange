@@ -19,26 +19,31 @@ class CollectionManager():
     async def disconnect(self) -> None:
         self.client.close()
 
-    async def create_trip(self, trip: Trip) -> None:
+    async def map_document_to_trip(self, document: dict) -> Trip:
+        trip = Trip(**document)
+        trip.id = str(document['_id'])
+        return trip
+
+    async def create_trip(self, trip: Trip) -> Optional[Trip]:
         trip_data = dict(trip.model_dump())
         new_trip_data = await self.collection.insert_one(trip_data)
         new_trip_data = await self.collection.find_one({"_id": new_trip_data.inserted_id})
         if new_trip_data:
-            new_trip_data['_id'] = str(new_trip_data['_id'])
-            new_trip = Trip(**new_trip_data)
+            new_trip = await self.map_document_to_trip(new_trip_data)
             return new_trip
 
     async def retrieve_all_trips_by_email(self, email: EmailStr) -> List[Trip]:
         trips = []
-        async for trip in self.collection.find({'email': email}):
-            trips.append(Trip(**trip))
+        async for trip_data in self.collection.find({'email': email}):
+            trip = await self.map_document_to_trip(trip_data)
+            trips.append(trip)
         return trips
     
     async def retrieve_trip_by_id(self, trip_id: str) -> Optional[Trip]:
         trip_data = await self.collection.find_one({"_id": ObjectId(trip_id)})
         if trip_data:
-            trip_data['_id'] = str(trip_data['_id'])
-            return Trip(**trip_data)
+            trip = await self.map_document_to_trip(trip_data)
+            return trip
 
     async def delete_all_trips_by_email(self, email: EmailStr) -> bool:
         count = await self.collection.count_documents({'email': email})
@@ -54,14 +59,13 @@ class CollectionManager():
             return True
         return False
     
-    async def update_trip(self, trip: Trip) -> Optional[Trip]:
-        trip_id = trip.id
+    async def update_trip(self, trip_id: str, trip: Trip) -> Optional[Trip]:
         trip_data = dict(trip.model_dump())
         trip_data.pop('id', None)  # Remove id as it should not be updated
         update_result = await self.collection.update_one({"_id": ObjectId(trip_id)}, {"$set": trip_data})
         if update_result.modified_count > 0:
             updated_trip_data = await self.collection.find_one({"_id": ObjectId(trip_id)})
             if updated_trip_data:
-                updated_trip_data['_id'] = str(updated_trip_data['_id'])
-                return Trip(**updated_trip_data)
+                updated_trip = await self.map_document_to_trip(updated_trip_data)
+                return updated_trip
         return None

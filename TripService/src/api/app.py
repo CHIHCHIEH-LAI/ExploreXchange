@@ -62,7 +62,7 @@ async def delete_trip_by_id_endpoint(trip_id: str):
 @app.put("/trips/{trip_id}", response_model=Trip, status_code=status.HTTP_200_OK)
 async def update_trip_endpoint(trip_id: str, trip: Trip = Body(...)):
     try:
-        updated_trip = await colMgr.update_trip(trip)
+        updated_trip = await colMgr.update_trip(trip_id, trip)
         if updated_trip is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Trip not found")
         return updated_trip
