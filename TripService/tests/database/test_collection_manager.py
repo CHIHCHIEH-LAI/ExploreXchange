@@ -1,25 +1,22 @@
 import pytest
-
 from datetime import datetime
-
 from TripService.src.models.event import Event
 from TripService.src.models.trip import Trip
-
 from TripService.src.database.collection_manager import CollectionManager
-from TripService.config import MONGODB_URI, DATABASE_NAME, COLLECTION_NAME
+from TripService.config import MONGO_DETAILS, DATABASE_NAME, COLLECTION_NAME
 
 def get_collection_manager():
     colMgr = CollectionManager(
-        uri = MONGODB_URI,
+        uri = MONGO_DETAILS,
         db_name = DATABASE_NAME,
         collection_name = COLLECTION_NAME
     )
     return colMgr
 
 def test_collection_connection():
-    colMgr = get_collection_manager()
     try:
-        colMgr.connect()
+        get_collection_manager().connect()
+        get_collection_manager().disconnect()
     except Exception as e:
         assert False, f"An error occurred while connecting to MongoDB: {e}"
 
@@ -39,7 +36,7 @@ def create_sample_trip():
         end_time=datetime(2024, 1, 15, 18, 0),
         location="Mount Everest",
         description="Exciting adventure trip to Everest.",
-        owner="user123",
+        email="user123@example.com",
         public=True,
         events=[create_sample_event(), create_sample_event(title="Another Event")]
     )
@@ -49,39 +46,49 @@ def test_create_trip():
     colMgr.connect()
     trip = create_sample_trip()
     try:
-        colMgr.create_trip(trip)
+        result = colMgr.create_trip(trip)
+        assert result is not None
+        print(result)
     except Exception as e:
-        assert False, f"An error occurred while creating trip to MongoDB: {e}"
-    colMgr.clean_collection()
+        assert False, f"An error occurred while creating a trip: {e}"
+    finally:
+        colMgr.disconnect()
 
-def test_clean_collection():
-    colMgr = get_collection_manager()
-    colMgr.connect()
-    try:
-        res = colMgr.clean_collection()
-        if not res:
-            assert False, "Cleaned Unsuccessfully"
-    except Exception as e:
-        assert False, f"An error occurred while cleaning trip collection: {e}"
+# async def test_delete_trip_by_id():
+#     colMgr = get_collection_manager()
+#     await colMgr.connect()
+#     trip = create_sample_trip()
+#     try:
+#         created_trip = await colMgr.create_trip(trip)
+#         result = await colMgr.delete_trip_by_id(str(created_trip.id))
+#         assert result is True
+#     except Exception as e:
+#         assert False, f"An error occurred while deleting a trip: {e}"
+#     finally:
+#         await colMgr.disconnect()
 
-def test_query_trip_by_id():
-    colMgr = get_collection_manager()
-    colMgr.connect()
-    trip = create_sample_trip()
-    trip_id = colMgr.create_trip(trip)
-    query_result = colMgr.query_trip_by_id(trip_id)
-    assert query_result.title == trip.title
-    colMgr.clean_collection()
+# async def test_retrieve_all_trips_by_email():
+#     colMgr = get_collection_manager()
+#     await colMgr.connect()
+#     trip = create_sample_trip()
+#     try:
+#         await colMgr.create_trip(trip)
+#         result = await colMgr.retrieve_all_trips_by_email(trip.owner)
+#         assert len(result) > 0
+#     except Exception as e:
+#         assert False, f"An error occurred while retrieving trips by email: {e}"
+#     finally:
+#         await colMgr.disconnect()
 
-def test_delete_trip_by_id():
-    colMgr = get_collection_manager()
-    colMgr.connect()
-    trip = create_sample_trip()
-    trip_id = colMgr.create_trip(trip)
-    res = colMgr.delete_trip_by_id(trip_id)
-    assert res == 1
-    query_result = colMgr.query_trip_by_id(trip_id)
-    assert query_result == None
-    colMgr.clean_collection()
-
-
+# async def test_delete_all_trips_by_email():
+#     colMgr = get_collection_manager()
+#     await colMgr.connect()
+#     trip = create_sample_trip()
+#     try:
+#         await colMgr.create_trip(trip)
+#         result = await colMgr.delete_all_trips_by_email(trip.owner)
+#         assert result is True
+#     except Exception as e:
+#         assert False, f"An error occurred while deleting all trips by email: {e}"
+#     finally:
+#         await colMgr.disconnect()

@@ -1,7 +1,5 @@
-import uvicorn
-from typing import Optional
-from fastapi import FastAPI, status, HTTPException
-from fastapi.responses import JSONResponse
+from typing import List
+from fastapi import FastAPI, status, HTTPException, Body
 from contextlib import asynccontextmanager
 
 from TripService.src.models.trip import Trip
@@ -15,55 +13,61 @@ colMgr = CollectionManager(
 )
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    colMgr.connect()
+    await colMgr.connect()
     yield
-    colMgr.disconnect()
+    await colMgr.disconnect()
+
 app = FastAPI(lifespan=lifespan)
 
-@app.post("/trips/create-trip", status_code=status.HTTP_201_CREATED)
-async def create_trip(trip: Trip):
+@app.post("/trips/create-trip", response_model=Trip, status_code=status.HTTP_201_CREATED)
+async def create_trip_endpoint(trip: Trip):
     try:
-        trip_id = colMgr.create_trip(trip)
-        return JSONResponse(
-            content={
-                "message": "Successfully created a trip",
-                "trip_id": trip_id
-            }, 
-            status_code=status.HTTP_201_CREATED
-        )
+        new_trip = await colMgr.create_trip(trip)
+        return new_trip
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
 
-@app.delete("/trips/clean-collection", status_code=status.HTTP_200_OK)
-async def clean_collection():
+@app.get("/trips/by-email/{email}", response_model=List[Trip], status_code=status.HTTP_200_OK)
+async def retrieve_all_trips_by_email_endpoint(email: str):
     try:
-        colMgr.clean_collection()
-        return JSONResponse(content={"message": "Successfully cleaned trip collection"}, status_code=status.HTTP_200_OK)
+        trips = await colMgr.retrieve_all_trips_by_email(email)
+        return trips
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
 
-
-@app.get("/trips/query-by-id/{trip_id}", response_model=Trip, status_code=status.HTTP_200_OK)
-async def query_trip_by_id(trip_id: str) -> Optional[Trip]:
-    trip = colMgr.query_trip_by_id(trip_id)
-
-    if trip is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Trip not found")
-
-    return trip
-
-@app.delete("/trips/delete-trip/{trip_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_trip(trip_id: str):
+@app.get("/trips/by-id/{trip_id}", response_model=Trip, status_code=status.HTTP_200_OK)
+async def retrieve_trip_by_id_endpoint(trip_id: str):
     try:
-        deletion_successful = colMgr.delete_trip_by_id(trip_id)
+        trip = await colMgr.retrieve_trip_by_id(trip_id)
+        return trip
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
 
-        if not deletion_successful:
+@app.delete("/trips/by-email/{email}", status_code=status.HTTP_200_OK)
+async def delete_all_trips_by_email_endpoint(email: str):
+    try:
+        result = await colMgr.delete_all_trips_by_email(email)
+        return {"success": result}
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
+
+@app.delete("/trips/by-id/{trip_id}", status_code=status.HTTP_200_OK)
+async def delete_trip_by_id_endpoint(trip_id: str):
+    try:
+        result = await colMgr.delete_trip_by_id(trip_id)
+        return {"success": result}
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
+
+@app.put("/trips/{trip_id}", response_model=Trip, status_code=status.HTTP_200_OK)
+async def update_trip_endpoint(trip_id: str, trip: Trip = Body(...)):
+    try:
+        updated_trip = await colMgr.update_trip(trip)
+        if updated_trip is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Trip not found")
-
+        return updated_trip
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
-
-    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT)
 
 # @app.get("/download/trip/{trip_id}")
 # async def download_trip(trip_id: str, background_tasks: BackgroundTasks):
@@ -94,7 +98,3 @@ async def delete_trip(trip_id: str):
 
 #     response = FileResponse(path=file_path, media_type='text/calendar')
 #     return response
-
-
-if __name__ == '__main__':
-    uvicorn.run(app, port=8001)
