@@ -1,6 +1,7 @@
 from typing import List
-from fastapi import FastAPI, status, HTTPException, Body
+from fastapi import FastAPI, status, HTTPException, BackgroundTasks
 from contextlib import asynccontextmanager
+import os
 
 from TripService.src.models.trip import Trip
 from TripService.src.database.collection_manager import CollectionManager
@@ -60,7 +61,7 @@ async def delete_trip_by_id_endpoint(trip_id: str):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
 
 @app.put("/trips/{trip_id}", response_model=Trip, status_code=status.HTTP_200_OK)
-async def update_trip_endpoint(trip_id: str, trip: Trip = Body(...)):
+async def update_trip_endpoint(trip_id: str, trip: Trip):
     try:
         updated_trip = await colMgr.update_trip(trip_id, trip)
         if updated_trip is None:
@@ -69,8 +70,9 @@ async def update_trip_endpoint(trip_id: str, trip: Trip = Body(...)):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Unexpected error: {str(e)}")
 
-# @app.get("/download/trip/{trip_id}")
-# async def download_trip(trip_id: str, background_tasks: BackgroundTasks):
+@app.get("/trips/download/{trip_id}")
+async def download_trip(trip_id: str, background_tasks: BackgroundTasks):
+    pass
 
 #     trip_query_uri = os.path.join(TRIP_MANAGEMENT_URI, f'trips/query-by-id/{trip_id}')
 #     response = requests.get(trip_query_uri)
